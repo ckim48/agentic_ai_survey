@@ -1,0 +1,4 @@
+vehicles,events,api_calls,aai_verifier_acceptance_rate,aai_selected_deadline_rate,oneshot_selected_deadline_rate,mean_aai_rounds,mean_aai_event_wall_ms,mean_aai_input_tokens,mean_aai_output_tokens,mean_oneshot_wall_ms,mean_oneshot_input_tokens,mean_oneshot_output_tokens,input_tokens,output_tokens,estimated_standard_cost_usd
+10,10,50,1.0,1.0,1.0,1.0,3595.8550000000005,1770.9,89.2,1416.3672000000001,659.3,28.0,24302,1172,0.072475
+25,10,50,1.0,1.0,1.0,1.0,3521.8762,1769.5,89.4,1329.4565,658.7,28.0,24282,1174,0.072445
+50,10,56,0.7,0.7,0.7,1.6,3349.8795999999993,2235.8,107.1,1653.4204000000002,660.4,28.0,28962,1351,0.085915

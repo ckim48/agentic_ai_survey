@@ -1,0 +1,77 @@
+\subsubsection{Experimental Setup}
+We evaluate AAI-CDOS using a trace-driven urban SAGIN simulator. Vehicle
+mobility is replayed from an anonymized Seoul T-data V2X vehicle-status trace
+containing WGS84 locations and timestamps. Vehicles are selected by 70\%
+temporal coverage and a declared Gangnam bounding box. The trace supplies mobility only;
+wireless channels, E2E routes, queues, and heterogeneous computing resources
+are simulated. Empty acquisition frames are removed and short missing portions
+of a selected trajectory are linearly interpolated. We consider 10, 25, and 50
+connected vehicles and replay 180 distinct nonempty snapshots per run.
+
+Each vehicle produces a DT synchronization task of 0.6--0.8~Mbit requiring 300
+CPU cycles/bit, following the settings in~\cite{li2025delayaware}. Tasks belong
+to safety, cooperative-awareness, and routine classes with probabilities
+0.2, 0.5, and 0.3 and hard deadlines of 0.15, 0.35, and 1.0~s, respectively.
+The deadlines are simulation assumptions and are not relaxed in response to
+resource availability. Independent-agent access/processing conflicts incur an
+80-ms reconciliation delay, an explicit baseline assumption evaluated through
+configuration sensitivity. The terrestrial NLoS path loss, shadowing, and receiver
+noise figure follow~\cite{zhang2023digitaltwin}. The SAGIN contains two ground
+BS/edge servers, five UAV nodes at 100~m, and one LEO-assisted compute path at
+780~km. All parameter sources and adaptations are summarized in
+Table~\ref{tab:simulation_setup}.
+
+Each AAI-CDOS orchestration event executes an
+observe--plan--tool--verify--coordinate--execute--feedback loop. Candidate
+actions jointly specify access, E2E route, computing placement, and resource
+priority. A hard-deadline verifier rejects infeasible joint plans, and at most
+$R=3$ cross-domain negotiation rounds are allowed. We compare AAI-CDOS with
+Single Domain, Independent Agents, and One-Shot LLM under identical traces,
+tasks, channels, and resource states. Each configuration is repeated for
+$N=30$ independent seeds; we report sample means with 95\% confidence
+intervals.
+
+The 30-seed network-performance experiment uses a deterministic planner
+surrogate for exact reproducibility and bounded cost. Its token and local
+planner-time columns are explicitly reported as proxies. Separately, we run a
+bounded, class-stratified GPT-4o Responses-API audit on states sampled from the
+same replay. In that audit, O-RAN, core-network, and compute agents propose
+domain actions concurrently, the E2E agent coordinates them under the same
+hard-deadline verifier for at most $R=3$ rounds, and a One-Shot GPT-4o baseline
+selects once without verifier feedback. We report returned API token usage and
+wall-clock latency in Table~\ref{tab:llm_audit}. The audit transmits only task
+and simulated resource metrics, omits vehicle coordinates and terminal IDs,
+and sets API response storage to false. Because it is a sampled telemetry
+audit, it is not used as a replacement for the full performance confidence
+intervals.
+For completeness, the sampled decision audit also evaluates Single Domain and
+Independent Agents on each identical pre-decision state; the resulting
+four-scheme comparison is reported separately in
+Table~\ref{tab:llm_audit_four_scheme} so that API overhead is not conflated
+with policy-level network performance.
+
+\begin{table}[t]
+  \centering
+  \caption{Trace-driven simulation settings.}
+  \label{tab:simulation_setup}
+  \renewcommand{\arraystretch}{1.08}
+  \begin{tabular}{ll}
+    \hline
+    Parameter & Value \\
+    \hline
+    Vehicles & $10,25,50$ \\
+    Independent runs & $30$ (95\% CI) \\
+    Replay horizon & 180 nonempty snapshots \\
+    DT update size & 0.6--0.8 Mbit \\
+    Workload & 300 cycles/bit \\
+    Hard deadlines & 0.15/0.35/1.0 s \\
+    Ground BS / UAV / LEO paths & 2 / 5 / 1 \\
+    UAV / LEO altitude & 100 m / 780 km \\
+    Ground / UAV / satellite bandwidth & 10/400/150 MHz \\
+    Ground edge / UAV / satellite CPU & 10/0.3/200 GHz \\
+    Maximum negotiation rounds $R$ & 3 \\
+    Agent memory & 32 events \\
+    Planner & deterministic surrogate \\
+    \hline
+  \end{tabular}
+\end{table}

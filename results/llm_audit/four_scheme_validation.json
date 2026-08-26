@@ -1,0 +1,17 @@
+{
+  "aai_oneshot_compared_events": 30,
+  "aai_oneshot_identical_plan_events": 30,
+  "api_calls_added": 0,
+  "comparison_state": "common AAI pre-decision state",
+  "errors": [],
+  "interpretation": "Decision audit only; full policy-level outcomes remain in the 30-seed main experiment.",
+  "rows": 120,
+  "schemes": [
+    "AAI-CDOS",
+    "Single Domain",
+    "Independent Agents",
+    "One-Shot LLM"
+  ],
+  "source_events": 30,
+  "status": "passed"
+}

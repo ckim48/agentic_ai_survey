@@ -1,0 +1,12 @@
+{
+  "api_calls": 156,
+  "errors": [],
+  "estimated_standard_cost_usd": 0.230835,
+  "events": 30,
+  "fallback_events": 3,
+  "input_tokens": 77546,
+  "minimum_latency_still_infeasible_events": 3,
+  "output_tokens": 3697,
+  "status": "passed",
+  "unique_response_ids": 156
+}

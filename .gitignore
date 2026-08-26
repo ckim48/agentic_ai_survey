@@ -1,0 +1,28 @@
+# Secrets and local environments
+.env
+.env.*
+.venv/
+venv/
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Licensed/private mobility data and transfer bundles
+data/*.npz
+data/*.npy
+*.zip
+*.tar
+*.tar.gz
+
+# Host-specific and raw API-correlation artifacts
+results/**/run_manifest.json
+results/llm_audit/calls.jsonl
+results/llm_audit/connection_test.json
+results/llm_audit/conversation_trace.jsonl
+
+# Local scratch outputs
+results/smoke/
+*.partial.csv
+*.partial.jsonl

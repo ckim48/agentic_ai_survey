@@ -1,0 +1,15 @@
+llm_audit:
+  model: gpt-4o
+  independent_seeds: 2
+  events_per_vehicle_seed: 5
+  trace_frames: 180
+  max_output_tokens: 160
+  timeout_s: 90
+  max_retries: 3
+  max_total_api_requests: 220
+  parallel_domain_agents: 3
+  output_dir: results/llm_audit
+  # Standard synchronous GPT-4o token prices published by OpenAI on 2026-08-26.
+  # They are used only to estimate this audit's cost from returned API usage.
+  input_usd_per_million_tokens: 2.50
+  output_usd_per_million_tokens: 10.00

@@ -1,0 +1,63 @@
+experiment:
+  name: aai_cdos_seoul_v2x
+  dataset_path: data/seoul_v2x_trace_evening45.npz
+  output_dir: results/full
+  seed_start: 2026
+  independent_runs: 30
+  vehicle_counts: [10, 25, 50]
+  frames_per_run: 180
+  minimum_vehicle_coverage: 0.70
+  # Keep the replay cohort inside the Gangnam urban study area.
+  region_bbox_lonlat: [127.001, 37.449, 127.075, 37.516]
+  confidence_level: 0.95
+  max_negotiation_rounds: 3
+  planner_mode: deterministic_surrogate
+
+tasks:
+  # IEEE TVT 2025, DOI 10.1109/TVT.2025.3548844, Table II.
+  update_size_mbit: [0.6, 0.8]
+  cycles_per_bit: 300
+  # Hard application requirements; these are explicit design assumptions.
+  classes:
+    safety: {probability: 0.20, deadline_s: 0.15}
+    cooperative: {probability: 0.50, deadline_s: 0.35}
+    routine: {probability: 0.30, deadline_s: 1.00}
+
+network:
+  base_stations: 2
+  uavs: 5
+  uav_altitude_m: 100
+  uav_orbit_radius_m: 1000
+  uav_speed_mps: 16.67
+  leo_altitude_m: 780000
+  # Fifty 1-MHz-equivalent subchannels; TVT 2023 uses 1 MHz/subchannel.
+  ground_bandwidth_hz: 50000000
+  air_bandwidth_hz: 400000000
+  satellite_bandwidth_hz: 150000000
+  ground_carrier_hz: 3500000000
+  air_carrier_hz: 4000000000
+  satellite_carrier_hz: 12000000000
+  noise_density_dbm_hz: -174
+  receiver_noise_figure_db: 9
+  ground_shadowing_std_db: 10
+  vehicle_tx_power_w: [0.01, 0.10]
+  satellite_tx_power_w: [0.20, 0.30]
+  ground_receiver_gain_db: 15
+  uav_receiver_gain_db: 10
+  # Satellite receive array plus a modest vehicle terminal array.
+  satellite_antenna_gain_db: 55
+
+compute:
+  ground_edge_cpu_hz: 10000000000
+  uav_cpu_hz: 300000000
+  satellite_cpu_hz: 200000000000
+
+orchestration:
+  # Priority-aware share multipliers average close to one under the task mix.
+  bandwidth_multiplier:
+    safety: 1.50
+    cooperative: 1.10
+    routine: 0.65
+  one_shot_random_plan_probability: 0.08
+  independent_mismatch_delay_s: 0.08
+  memory_events: 32

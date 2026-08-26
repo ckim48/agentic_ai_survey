@@ -1,0 +1,19 @@
+{
+  "errors": [],
+  "real_gpt_api_latency_included": false,
+  "rows": 12,
+  "runs_per_scheme_load": 30,
+  "schemes": [
+    "AAI-CDOS",
+    "Single Domain",
+    "Independent Agents",
+    "One-Shot LLM"
+  ],
+  "source": "deterministic 30-seed trace-driven network simulation",
+  "status": "passed",
+  "vehicle_counts": [
+    10,
+    25,
+    50
+  ]
+}

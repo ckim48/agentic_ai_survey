@@ -1,0 +1,13 @@
+{
+  "contains_api_key": false,
+  "contains_coordinates": false,
+  "contains_terminal_ids": false,
+  "errors": [],
+  "events": 30,
+  "new_api_calls": 0,
+  "public_trace_contains_request_or_response_ids": false,
+  "reconstructed_traces": 30,
+  "status": "passed",
+  "trace_type": "deterministically reconstructed sanitized structured transcript",
+  "unique_trace_sha256": 30
+}

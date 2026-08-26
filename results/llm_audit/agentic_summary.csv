@@ -1,0 +1,4 @@
+vehicles,events,mean_feasible_candidates,oran_final_agreement,compute_final_agreement,cn_final_agreement,all_domain_proposals_align_final,aai_oneshot_same_plan,mean_rounds,events_with_rejection,fallback_rate,verifier_acceptance_rate,mean_aai_api_calls,mean_aai_tokens,mean_aai_event_wall_ms
+10,10,4.1,1.0,0.7,1.0,0.7,1.0,1.0,0.0,0.0,1.0,4.0,1860.1,3595.8550000000005
+25,10,4.1,0.8,0.6,1.0,0.5,1.0,1.0,0.0,0.0,1.0,4.0,1858.9,3521.8762
+50,10,2.8,0.9,0.7,0.9,0.5,1.0,1.6,0.3,0.3,0.7,4.6,2342.9,3349.8795999999993

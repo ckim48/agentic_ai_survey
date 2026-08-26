@@ -1,0 +1,121 @@
+event_id,vehicles,seed,frame,task_class,scheme,access,compute,deadline_ms,e2e_latency_ms,deadline_met,mismatch_delay_ms,decision_wall_ms,api_calls,api_input_tokens,api_output_tokens,comparison_state
+n10_s2026_e1,10,2026,61,routine,AAI-CDOS,ground,ground1,1000.0,139.198,True,0.0,4778.137,4,1777,90,common_AAI_predecision_state
+n10_s2026_e1,10,2026,61,routine,Single Domain,ground,ground1,1000.0,139.198,True,0.0,0.0020740553736686707,0,0,0,common_AAI_predecision_state
+n10_s2026_e1,10,2026,61,routine,Independent Agents,ground,ground1,1000.0,139.198,True,0.0,0.008707400411367416,0,0,0,common_AAI_predecision_state
+n10_s2026_e1,10,2026,61,routine,One-Shot LLM,ground,ground1,1000.0,139.198,True,0.0,2677.187,1,655,28,common_AAI_predecision_state
+n10_s2026_e2,10,2026,75,cooperative,AAI-CDOS,leo,sat0,350.0,137.024,True,0.0,3326.411,4,1762,88,common_AAI_predecision_state
+n10_s2026_e2,10,2026,75,cooperative,Single Domain,leo,sat0,350.0,137.024,True,0.0,0.0017629936337471008,0,0,0,common_AAI_predecision_state
+n10_s2026_e2,10,2026,75,cooperative,Independent Agents,leo,ground0,350.0,189.73,True,80.0,0.007934868335723877,0,0,0,common_AAI_predecision_state
+n10_s2026_e2,10,2026,75,cooperative,One-Shot LLM,leo,sat0,350.0,137.024,True,0.0,1113.638,1,656,28,common_AAI_predecision_state
+n10_s2026_e3,10,2026,109,safety,AAI-CDOS,uav,ground0,150.0,36.862,True,0.0,5019.912,4,1773,89,common_AAI_predecision_state
+n10_s2026_e3,10,2026,109,safety,Single Domain,uav,uav2,150.0,653.509,False,0.0,0.0019338913261890411,0,0,0,common_AAI_predecision_state
+n10_s2026_e3,10,2026,109,safety,Independent Agents,uav,ground0,150.0,116.862,True,80.0,0.007935333997011185,0,0,0,common_AAI_predecision_state
+n10_s2026_e3,10,2026,109,safety,One-Shot LLM,uav,ground0,150.0,36.862,True,0.0,1122.457,1,661,28,common_AAI_predecision_state
+n10_s2026_e4,10,2026,112,safety,AAI-CDOS,uav,ground0,150.0,30.907,True,0.0,5213.29,4,1762,89,common_AAI_predecision_state
+n10_s2026_e4,10,2026,112,safety,Single Domain,uav,uav2,150.0,682.149,False,0.0,0.0018137507140636444,0,0,0,common_AAI_predecision_state
+n10_s2026_e4,10,2026,112,safety,Independent Agents,uav,ground0,150.0,110.907,True,80.0,0.007704831659793854,0,0,0,common_AAI_predecision_state
+n10_s2026_e4,10,2026,112,safety,One-Shot LLM,uav,ground0,150.0,30.907,True,0.0,1098.617,1,655,28,common_AAI_predecision_state
+n10_s2026_e5,10,2026,169,cooperative,AAI-CDOS,uav,sat0,350.0,75.381,True,0.0,2719.667,4,1774,91,common_AAI_predecision_state
+n10_s2026_e5,10,2026,169,cooperative,Single Domain,uav,uav0,350.0,704.426,False,0.0,0.0018328428268432617,0,0,0,common_AAI_predecision_state
+n10_s2026_e5,10,2026,169,cooperative,Independent Agents,uav,sat0,350.0,155.381,True,80.0,0.007893890142440796,0,0,0,common_AAI_predecision_state
+n10_s2026_e5,10,2026,169,cooperative,One-Shot LLM,uav,sat0,350.0,75.381,True,0.0,1281.267,1,661,28,common_AAI_predecision_state
+n10_s2027_e1,10,2027,19,cooperative,AAI-CDOS,leo,sat0,350.0,150.838,True,0.0,2175.389,4,1773,88,common_AAI_predecision_state
+n10_s2027_e1,10,2027,19,cooperative,Single Domain,leo,sat0,350.0,150.838,True,0.0,0.0018333084881305695,0,0,0,common_AAI_predecision_state
+n10_s2027_e1,10,2027,19,cooperative,Independent Agents,leo,sat0,350.0,150.838,True,0.0,0.008075032383203506,0,0,0,common_AAI_predecision_state
+n10_s2027_e1,10,2027,19,cooperative,One-Shot LLM,leo,sat0,350.0,150.838,True,0.0,1000.522,1,661,28,common_AAI_predecision_state
+n10_s2027_e2,10,2027,91,safety,AAI-CDOS,leo,sat0,150.0,97.973,True,0.0,3052.169,4,1774,90,common_AAI_predecision_state
+n10_s2027_e2,10,2027,91,safety,Single Domain,leo,sat0,150.0,97.973,True,0.0,0.00169314444065094,0,0,0,common_AAI_predecision_state
+n10_s2027_e2,10,2027,91,safety,Independent Agents,leo,sat0,150.0,97.973,True,0.0,0.00796513631939888,0,0,0,common_AAI_predecision_state
+n10_s2027_e2,10,2027,91,safety,One-Shot LLM,leo,sat0,150.0,97.973,True,0.0,1535.919,1,661,28,common_AAI_predecision_state
+n10_s2027_e3,10,2027,139,safety,AAI-CDOS,uav,ground0,150.0,139.426,True,0.0,5243.583,4,1765,89,common_AAI_predecision_state
+n10_s2027_e3,10,2027,139,safety,Single Domain,uav,uav0,150.0,844.675,False,0.0,0.0019031576812267303,0,0,0,common_AAI_predecision_state
+n10_s2027_e3,10,2027,139,safety,Independent Agents,uav,ground0,150.0,219.426,False,80.0,0.008014962077140808,0,0,0,common_AAI_predecision_state
+n10_s2027_e3,10,2027,139,safety,One-Shot LLM,uav,ground0,150.0,139.426,True,0.0,923.445,1,661,28,common_AAI_predecision_state
+n10_s2027_e4,10,2027,145,cooperative,AAI-CDOS,uav,ground0,350.0,50.163,True,0.0,2337.777,4,1774,89,common_AAI_predecision_state
+n10_s2027_e4,10,2027,145,cooperative,Single Domain,uav,uav4,350.0,749.938,False,0.0,0.0018230639398097992,0,0,0,common_AAI_predecision_state
+n10_s2027_e4,10,2027,145,cooperative,Independent Agents,uav,ground0,350.0,130.163,True,80.0,0.007894821465015411,0,0,0,common_AAI_predecision_state
+n10_s2027_e4,10,2027,145,cooperative,One-Shot LLM,uav,ground0,350.0,50.163,True,0.0,2324.627,1,661,28,common_AAI_predecision_state
+n10_s2027_e5,10,2027,177,routine,AAI-CDOS,uav,sat0,1000.0,94.337,True,0.0,2092.215,4,1775,89,common_AAI_predecision_state
+n10_s2027_e5,10,2027,177,routine,Single Domain,uav,uav0,1000.0,615.739,True,0.0,0.0018030405044555664,0,0,0,common_AAI_predecision_state
+n10_s2027_e5,10,2027,177,routine,Independent Agents,uav,sat0,1000.0,174.337,True,80.0,0.007764901965856552,0,0,0,common_AAI_predecision_state
+n10_s2027_e5,10,2027,177,routine,One-Shot LLM,uav,sat0,1000.0,94.337,True,0.0,1085.993,1,661,28,common_AAI_predecision_state
+n25_s2026_e1,25,2026,36,cooperative,AAI-CDOS,leo,sat0,350.0,168.684,True,0.0,2087.512,4,1771,90,common_AAI_predecision_state
+n25_s2026_e1,25,2026,36,cooperative,Single Domain,leo,sat0,350.0,168.684,True,0.0,0.0017131678760051727,0,0,0,common_AAI_predecision_state
+n25_s2026_e1,25,2026,36,cooperative,Independent Agents,leo,sat0,350.0,168.684,True,0.0,0.007904134690761566,0,0,0,common_AAI_predecision_state
+n25_s2026_e1,25,2026,36,cooperative,One-Shot LLM,leo,sat0,350.0,168.684,True,0.0,1091.733,1,655,28,common_AAI_predecision_state
+n25_s2026_e2,25,2026,93,safety,AAI-CDOS,uav,ground1,150.0,41.325,True,0.0,8218.696,4,1771,89,common_AAI_predecision_state
+n25_s2026_e2,25,2026,93,safety,Single Domain,uav,uav4,150.0,680.571,False,0.0,0.001753680408000946,0,0,0,common_AAI_predecision_state
+n25_s2026_e2,25,2026,93,safety,Independent Agents,uav,ground1,150.0,121.325,True,80.0,0.008034985512495041,0,0,0,common_AAI_predecision_state
+n25_s2026_e2,25,2026,93,safety,One-Shot LLM,uav,ground1,150.0,41.325,True,0.0,1142.506,1,661,28,common_AAI_predecision_state
+n25_s2026_e3,25,2026,124,safety,AAI-CDOS,leo,sat0,150.0,108.488,True,0.0,7405.431,4,1765,88,common_AAI_predecision_state
+n25_s2026_e3,25,2026,124,safety,Single Domain,leo,sat0,150.0,108.488,True,0.0,0.0016330741345882416,0,0,0,common_AAI_predecision_state
+n25_s2026_e3,25,2026,124,safety,Independent Agents,leo,sat0,150.0,108.488,True,0.0,0.007935333997011185,0,0,0,common_AAI_predecision_state
+n25_s2026_e3,25,2026,124,safety,One-Shot LLM,leo,sat0,150.0,108.488,True,0.0,1253.01,1,662,28,common_AAI_predecision_state
+n25_s2026_e4,25,2026,132,routine,AAI-CDOS,leo,sat0,1000.0,171.739,True,0.0,2971.512,4,1772,88,common_AAI_predecision_state
+n25_s2026_e4,25,2026,132,routine,Single Domain,leo,sat0,1000.0,171.739,True,0.0,0.0016442500054836273,0,0,0,common_AAI_predecision_state
+n25_s2026_e4,25,2026,132,routine,Independent Agents,leo,sat0,1000.0,171.739,True,0.0,0.007854308933019638,0,0,0,common_AAI_predecision_state
+n25_s2026_e4,25,2026,132,routine,One-Shot LLM,leo,sat0,1000.0,171.739,True,0.0,1356.224,1,655,28,common_AAI_predecision_state
+n25_s2026_e5,25,2026,177,cooperative,AAI-CDOS,uav,ground1,350.0,99.031,True,0.0,2723.66,4,1771,91,common_AAI_predecision_state
+n25_s2026_e5,25,2026,177,cooperative,Single Domain,uav,uav2,350.0,744.854,False,0.0,0.0018426217138767242,0,0,0,common_AAI_predecision_state
+n25_s2026_e5,25,2026,177,cooperative,Independent Agents,uav,sat0,350.0,183.993,True,80.0,0.008055008947849274,0,0,0,common_AAI_predecision_state
+n25_s2026_e5,25,2026,177,cooperative,One-Shot LLM,uav,ground1,350.0,99.031,True,0.0,1127.544,1,661,28,common_AAI_predecision_state
+n25_s2027_e1,25,2027,12,routine,AAI-CDOS,uav,ground1,1000.0,142.488,True,0.0,2228.328,4,1778,91,common_AAI_predecision_state
+n25_s2027_e1,25,2027,12,routine,Single Domain,uav,uav2,1000.0,742.179,True,0.0,0.0018738210201263428,0,0,0,common_AAI_predecision_state
+n25_s2027_e1,25,2027,12,routine,Independent Agents,uav,sat0,1000.0,232.956,True,80.0,0.008085276931524277,0,0,0,common_AAI_predecision_state
+n25_s2027_e1,25,2027,12,routine,One-Shot LLM,uav,ground1,1000.0,142.488,True,0.0,1166.197,1,661,28,common_AAI_predecision_state
+n25_s2027_e2,25,2027,23,cooperative,AAI-CDOS,uav,ground0,350.0,247.41,True,0.0,2475.621,4,1771,90,common_AAI_predecision_state
+n25_s2027_e2,25,2027,23,cooperative,Single Domain,uav,uav1,350.0,781.831,False,0.0,0.0018030405044555664,0,0,0,common_AAI_predecision_state
+n25_s2027_e2,25,2027,23,cooperative,Independent Agents,uav,sat0,350.0,337.533,True,80.0,0.007774680852890015,0,0,0,common_AAI_predecision_state
+n25_s2027_e2,25,2027,23,cooperative,One-Shot LLM,uav,ground0,350.0,247.41,True,0.0,1200.959,1,655,28,common_AAI_predecision_state
+n25_s2027_e3,25,2027,170,safety,AAI-CDOS,leo,sat0,150.0,114.887,True,0.0,2403.087,4,1752,88,common_AAI_predecision_state
+n25_s2027_e3,25,2027,170,safety,Single Domain,leo,sat0,150.0,114.887,True,0.0,0.0016028061509132385,0,0,0,common_AAI_predecision_state
+n25_s2027_e3,25,2027,170,safety,Independent Agents,leo,ground0,150.0,149.396,True,80.0,0.007783994078636169,0,0,0,common_AAI_predecision_state
+n25_s2027_e3,25,2027,170,safety,One-Shot LLM,leo,sat0,150.0,114.887,True,0.0,982.293,1,655,28,common_AAI_predecision_state
+n25_s2027_e4,25,2027,175,safety,AAI-CDOS,uav,ground1,150.0,47.024,True,0.0,2355.935,4,1771,89,common_AAI_predecision_state
+n25_s2027_e4,25,2027,175,safety,Single Domain,uav,uav1,150.0,783.896,False,0.0,0.001742970198392868,0,0,0,common_AAI_predecision_state
+n25_s2027_e4,25,2027,175,safety,Independent Agents,uav,ground1,150.0,127.024,True,80.0,0.007725320756435394,0,0,0,common_AAI_predecision_state
+n25_s2027_e4,25,2027,175,safety,One-Shot LLM,uav,ground1,150.0,47.024,True,0.0,2598.983,1,661,28,common_AAI_predecision_state
+n25_s2027_e5,25,2027,176,cooperative,AAI-CDOS,leo,sat0,350.0,190.985,True,0.0,2348.98,4,1773,90,common_AAI_predecision_state
+n25_s2027_e5,25,2027,176,cooperative,Single Domain,leo,sat0,350.0,190.985,True,0.0,0.0015427358448505402,0,0,0,common_AAI_predecision_state
+n25_s2027_e5,25,2027,176,cooperative,Independent Agents,leo,sat0,350.0,190.985,True,0.0,0.007793772965669632,0,0,0,common_AAI_predecision_state
+n25_s2027_e5,25,2027,176,cooperative,One-Shot LLM,leo,sat0,350.0,190.985,True,0.0,1375.116,1,661,28,common_AAI_predecision_state
+n50_s2026_e1,50,2026,9,cooperative,AAI-CDOS,leo,sat0,350.0,367.824,False,0.0,5577.277,6,3318,148,common_AAI_predecision_state
+n50_s2026_e1,50,2026,9,cooperative,Single Domain,leo,sat0,350.0,367.824,False,0.0,0.0016926787793636322,0,0,0,common_AAI_predecision_state
+n50_s2026_e1,50,2026,9,cooperative,Independent Agents,leo,sat0,350.0,367.824,False,0.0,0.007994938641786575,0,0,0,common_AAI_predecision_state
+n50_s2026_e1,50,2026,9,cooperative,One-Shot LLM,leo,sat0,350.0,367.824,False,0.0,973.915,1,661,28,common_AAI_predecision_state
+n50_s2026_e2,50,2026,46,safety,AAI-CDOS,uav,ground1,150.0,39.278,True,0.0,2412.429,4,1763,89,common_AAI_predecision_state
+n50_s2026_e2,50,2026,46,safety,Single Domain,uav,uav3,150.0,653.9,False,0.0,0.0018239952623844147,0,0,0,common_AAI_predecision_state
+n50_s2026_e2,50,2026,46,safety,Independent Agents,uav,ground1,150.0,119.278,True,80.0,0.00782497227191925,0,0,0,common_AAI_predecision_state
+n50_s2026_e2,50,2026,46,safety,One-Shot LLM,uav,ground1,150.0,39.278,True,0.0,1604.615,1,655,28,common_AAI_predecision_state
+n50_s2026_e3,50,2026,76,cooperative,AAI-CDOS,uav,ground0,350.0,145.72,True,0.0,3983.495,4,1775,91,common_AAI_predecision_state
+n50_s2026_e3,50,2026,76,cooperative,Single Domain,uav,uav4,350.0,638.323,False,0.0,0.0018030405044555664,0,0,0,common_AAI_predecision_state
+n50_s2026_e3,50,2026,76,cooperative,Independent Agents,uav,ground0,350.0,225.72,True,80.0,0.007804948836565018,0,0,0,common_AAI_predecision_state
+n50_s2026_e3,50,2026,76,cooperative,One-Shot LLM,uav,ground0,350.0,145.72,True,0.0,1114.938,1,661,28,common_AAI_predecision_state
+n50_s2026_e4,50,2026,80,routine,AAI-CDOS,uav,ground0,1000.0,178.511,True,0.0,2410.269,4,1772,89,common_AAI_predecision_state
+n50_s2026_e4,50,2026,80,routine,Single Domain,uav,uav2,1000.0,748.289,True,0.0,0.0018333084881305695,0,0,0,common_AAI_predecision_state
+n50_s2026_e4,50,2026,80,routine,Independent Agents,uav,ground0,1000.0,258.511,True,80.0,0.007734633982181549,0,0,0,common_AAI_predecision_state
+n50_s2026_e4,50,2026,80,routine,One-Shot LLM,uav,ground0,1000.0,178.511,True,0.0,1088.189,1,655,28,common_AAI_predecision_state
+n50_s2026_e5,50,2026,83,safety,AAI-CDOS,leo,sat0,150.0,217.151,False,0.0,4980.357,6,3317,144,common_AAI_predecision_state
+n50_s2026_e5,50,2026,83,safety,Single Domain,leo,sat0,150.0,217.151,False,0.0,0.0015730038285255432,0,0,0,common_AAI_predecision_state
+n50_s2026_e5,50,2026,83,safety,Independent Agents,leo,ground0,150.0,269.849,False,80.0,0.007925089448690414,0,0,0,common_AAI_predecision_state
+n50_s2026_e5,50,2026,83,safety,One-Shot LLM,leo,sat0,150.0,217.151,False,0.0,1380.368,1,662,28,common_AAI_predecision_state
+n50_s2027_e1,50,2027,72,safety,AAI-CDOS,uav,ground1,150.0,101.145,True,0.0,2436.071,4,1767,91,common_AAI_predecision_state
+n50_s2027_e1,50,2027,72,safety,Single Domain,uav,uav3,150.0,614.587,False,0.0,0.0018533319234848022,0,0,0,common_AAI_predecision_state
+n50_s2027_e1,50,2027,72,safety,Independent Agents,uav,ground1,150.0,181.145,False,80.0,0.008405651897192001,0,0,0,common_AAI_predecision_state
+n50_s2027_e1,50,2027,72,safety,One-Shot LLM,uav,ground1,150.0,101.145,True,0.0,1282.438,1,661,28,common_AAI_predecision_state
+n50_s2027_e2,50,2027,144,safety,AAI-CDOS,uav,ground0,150.0,220.874,False,0.0,4411.464,6,3325,149,common_AAI_predecision_state
+n50_s2027_e2,50,2027,144,safety,Single Domain,uav,uav1,150.0,861.755,False,0.0,0.0018030405044555664,0,0,0,common_AAI_predecision_state
+n50_s2027_e2,50,2027,144,safety,Independent Agents,uav,ground0,150.0,300.874,False,80.0,0.007915310561656952,0,0,0,common_AAI_predecision_state
+n50_s2027_e2,50,2027,144,safety,One-Shot LLM,uav,ground0,150.0,220.874,False,0.0,1157.047,1,662,28,common_AAI_predecision_state
+n50_s2027_e3,50,2027,144,cooperative,AAI-CDOS,leo,sat0,350.0,280.699,True,0.0,2789.853,4,1774,90,common_AAI_predecision_state
+n50_s2027_e3,50,2027,144,cooperative,Single Domain,leo,sat0,350.0,280.699,True,0.0,0.001593027263879776,0,0,0,common_AAI_predecision_state
+n50_s2027_e3,50,2027,144,cooperative,Independent Agents,leo,sat0,350.0,280.699,True,0.0,0.007694121450185776,0,0,0,common_AAI_predecision_state
+n50_s2027_e3,50,2027,144,cooperative,One-Shot LLM,leo,sat0,350.0,280.699,True,0.0,1838.442,1,661,28,common_AAI_predecision_state
+n50_s2027_e4,50,2027,153,routine,AAI-CDOS,uav,ground0,1000.0,312.632,True,0.0,1962.479,4,1777,90,common_AAI_predecision_state
+n50_s2027_e4,50,2027,153,routine,Single Domain,uav,uav4,1000.0,703.316,True,0.0,0.0017830170691013336,0,0,0,common_AAI_predecision_state
+n50_s2027_e4,50,2027,153,routine,Independent Agents,uav,sat0,1000.0,402.2,True,80.0,0.00782497227191925,0,0,0,common_AAI_predecision_state
+n50_s2027_e4,50,2027,153,routine,One-Shot LLM,uav,ground0,1000.0,312.632,True,0.0,1405.538,1,661,28,common_AAI_predecision_state
+n50_s2027_e5,50,2027,173,cooperative,AAI-CDOS,leo,sat0,350.0,303.839,True,0.0,2535.102,4,1770,90,common_AAI_predecision_state
+n50_s2027_e5,50,2027,173,cooperative,Single Domain,leo,sat0,350.0,303.839,True,0.0,0.0016228295862674713,0,0,0,common_AAI_predecision_state
+n50_s2027_e5,50,2027,173,cooperative,Independent Agents,leo,sat0,350.0,303.839,True,0.0,0.007854774594306946,0,0,0,common_AAI_predecision_state
+n50_s2027_e5,50,2027,173,cooperative,One-Shot LLM,leo,sat0,350.0,303.839,True,0.0,4688.714,1,665,28,common_AAI_predecision_state

@@ -1,0 +1,25 @@
+PARTIAL OUTPUT & FINAL DECISION
+
+E2E SERVICE DOMAIN
+[Intent] Safety-critical vehicular DT synchronization
+Update: 0.606 Mbit | Deadline: 150 ms
+[Plan] Coordinate access, routing, and DT computing.
+
+DOMAIN-AGENT OUTPUTS - ROUND 1
+O-RAN: UAV access (confidence 0.90)
+CN: shortest terrestrial edge path
+Computing: satellite DT node
+
+[Joint Candidate] UAV access -> satellite DT node
+[Verifier] 430.3 ms > 150 ms: REJECTED
+[Feedback] Transmission delay (351.9 ms) violates the deadline.
+
+VERIFIER-GUIDED REVISION - ROUND 2
+O-RAN: LEO access | Rate: 9.59 Mbit/s
+E2E coordinator: LEO access -> satellite DT node
+
+FINAL JOINT DECISION
+Delay components: transmission + path + queue + service
+Latency: 63.2 + 28.4 + 49.1 + 0.9
+       = 141.6 ms <= 150 ms
+Verdict: ACCEPTED | Status: COMMITTED

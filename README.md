@@ -56,6 +56,13 @@ The observed cloud-API wall time is longer than the application deadlines, so
 the audit does not validate synchronous per-event cloud control; such a design
 needs asynchronous/precomputed decisions or a lower-latency local model path.
 
+A second experiment in `results/actual_agentic_v2/` closes the model-execution
+gap for the publication-facing comparison: AAI-CDOS, Independent Agents,
+One-Shot LLM, and Single Domain all invoke the configured real model on the
+same sampled pre-decision states. AAI-CDOS uses separate O-RAN, CN, computing,
+and E2E calls with verifier feedback and bounded memory. Simulated DT-update
+latency and measured cloud-planner wall time remain separate metrics.
+
 ## Literature-grounded settings
 
 The parameter mapping is documented in `REFERENCES.md` and
@@ -118,6 +125,22 @@ The default audit is capped at 220 HTTP request attempts. It sends task and
 simulated resource metrics only; terminal IDs, vehicle coordinates, trace
 timestamps, and the API key are never included in prompts or output files.
 
+Actual-model four-scheme agentic experiment:
+
+```bash
+export OPENAI_API_KEY="..."
+python3 scripts/run_actual_agentic_experiment.py \
+  --agent-config config/actual_agentic.yaml
+unset OPENAI_API_KEY
+```
+
+Pipeline-only dry run (not experimental evidence):
+
+```bash
+python3 scripts/run_actual_agentic_experiment.py --dry-run \
+  --runs 1 --events-per-vehicle-seed 1 --output results/smoke/actual_agentic
+```
+
 Quick smoke test:
 
 ```bash
@@ -146,6 +169,8 @@ python3 scripts/summarize_results.py --config config/simulation.yaml \
   metrics, examples, and validation reports. Raw API correlation logs are not
   committed.
 - `paper/llm_audit_table.tex`: auto-generated bounded-audit overhead table.
+- `results/actual_agentic_v2/`: actual-model four-scheme same-state outcomes,
+  structured agent traces, token usage, verifier rounds, and planner wall time.
 - `results/llm_audit/four_scheme_{events,summary}.csv`: AAI-CDOS, Single
   Domain, Independent Agents, and One-Shot LLM decisions evaluated on the same
   sampled pre-decision states; no extra API calls are used.

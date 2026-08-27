@@ -1,0 +1,189 @@
+{
+  "compute_observation": [
+    {
+      "compute": "ground0",
+      "queue_ms": 72.63,
+      "service_ms": 18.186
+    },
+    {
+      "compute": "ground1",
+      "queue_ms": 38.726,
+      "service_ms": 18.186
+    },
+    {
+      "compute": "sat0",
+      "queue_ms": 49.064,
+      "service_ms": 0.909
+    },
+    {
+      "compute": "uav0",
+      "queue_ms": 0.0,
+      "service_ms": 606.192
+    }
+  ],
+  "event_id": "n25_s2028_e4",
+  "evidence_type": "actual structured GPT-4o agent outputs plus deterministic verifier",
+  "figure_copy_is_paraphrased": true,
+  "final_semantic_plan": {
+    "access": "LEO",
+    "compute": "satellite DT node",
+    "route": "satellite-assisted E2E path"
+  },
+  "frame": 168,
+  "radio_observation": {
+    "ground": {
+      "link_distance_m": 4604.61,
+      "rate_mbps": 0.0861,
+      "snr_db": -20.0
+    },
+    "leo": {
+      "link_distance_m": 780000.0,
+      "rate_mbps": 9.5896,
+      "snr_db": 0.386
+    },
+    "uav": {
+      "link_distance_m": 3874.68,
+      "rate_mbps": 1.7226,
+      "snr_db": -20.0
+    }
+  },
+  "rounds": [
+    {
+      "coordinator_decision": {
+        "confidence": 0.9,
+        "expected_deadline_met": true,
+        "plan_id": "p6",
+        "rationale_code": "memory_guided"
+      },
+      "domain_proposals": {
+        "cn": {
+          "confidence": 0.95,
+          "plan_id": "p0",
+          "rationale_code": "lowest_latency"
+        },
+        "compute": {
+          "compute": "sat0",
+          "confidence": 0.9,
+          "rationale_code": "lowest_latency"
+        },
+        "oran": {
+          "access": "uav",
+          "confidence": 0.9,
+          "rationale_code": "deadline_margin"
+        }
+      },
+      "round": 1,
+      "verifier": {
+        "accepted": false,
+        "checked_plan_id": "p6",
+        "deadline_violation_ms": 280.321,
+        "estimated_dt_update_latency_ms": 430.321,
+        "hard_deadline_ms": 150.0,
+        "latency_breakdown_ms": {
+          "path": 28.45,
+          "queue": 49.064,
+          "service": 0.909,
+          "transmission": 351.898
+        },
+        "previous_coordinator_decision": {
+          "confidence": 0.9,
+          "expected_deadline_met": true,
+          "plan_id": "p6",
+          "rationale_code": "memory_guided"
+        },
+        "previous_domain_proposals": {
+          "cn": {
+            "confidence": 0.95,
+            "plan_id": "p0",
+            "rationale_code": "lowest_latency"
+          },
+          "compute": {
+            "compute": "sat0",
+            "confidence": 0.9,
+            "rationale_code": "lowest_latency"
+          },
+          "oran": {
+            "access": "uav",
+            "confidence": 0.9,
+            "rationale_code": "deadline_margin"
+          }
+        },
+        "rejected_plan_ids": [
+          "p6"
+        ]
+      }
+    },
+    {
+      "coordinator_decision": {
+        "confidence": 0.95,
+        "expected_deadline_met": true,
+        "plan_id": "p7",
+        "rationale_code": "lowest_latency"
+      },
+      "domain_proposals": {
+        "cn": {
+          "confidence": 0.95,
+          "plan_id": "p0",
+          "rationale_code": "lowest_latency"
+        },
+        "compute": {
+          "compute": "ground1",
+          "confidence": 0.95,
+          "rationale_code": "queue_avoidance"
+        },
+        "oran": {
+          "access": "leo",
+          "confidence": 0.95,
+          "rationale_code": "lowest_latency"
+        }
+      },
+      "round": 2,
+      "verifier": {
+        "accepted": true,
+        "checked_plan_id": "p7",
+        "deadline_violation_ms": 0.0,
+        "estimated_dt_update_latency_ms": 141.636,
+        "hard_deadline_ms": 150.0,
+        "latency_breakdown_ms": {
+          "path": 28.45,
+          "queue": 49.064,
+          "service": 0.909,
+          "transmission": 63.213
+        },
+        "previous_coordinator_decision": {
+          "confidence": 0.95,
+          "expected_deadline_met": true,
+          "plan_id": "p7",
+          "rationale_code": "lowest_latency"
+        },
+        "previous_domain_proposals": {
+          "cn": {
+            "confidence": 0.95,
+            "plan_id": "p0",
+            "rationale_code": "lowest_latency"
+          },
+          "compute": {
+            "compute": "ground1",
+            "confidence": 0.95,
+            "rationale_code": "queue_avoidance"
+          },
+          "oran": {
+            "access": "leo",
+            "confidence": 0.95,
+            "rationale_code": "lowest_latency"
+          }
+        },
+        "rejected_plan_ids": [
+          "p6"
+        ]
+      }
+    }
+  ],
+  "seed": 2028,
+  "task": {
+    "class": "safety",
+    "deadline_ms": 150.0,
+    "update_mbit": 0.60619
+  },
+  "vehicles": 25
+}

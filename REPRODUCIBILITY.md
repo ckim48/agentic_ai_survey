@@ -36,7 +36,26 @@ python3 scripts/generate_dt_results.py
 These 30-seed results use the deterministic planner surrogate. They provide
 policy-level deadline, network latency, DT age, and position-error results.
 
-## 4. Optional real-GPT-4o audit
+## 4. Actual-model agentic experiment
+
+The publication-facing agentic comparison invokes the configured model for all
+four schemes on the same sampled pre-decision simulator states. AAI-CDOS uses
+separate O-RAN, CN, computing, and E2E coordination calls, deterministic
+verification, feedback-driven revision, and bounded memory. The Independent,
+One-Shot, and Single-Domain baselines invoke real model planners while omitting
+the components excluded by their definitions.
+
+```bash
+export OPENAI_API_KEY="..."
+python3 scripts/run_actual_agentic_experiment.py \
+  --agent-config config/actual_agentic.yaml
+unset OPENAI_API_KEY
+```
+
+Use `--dry-run --runs 1 --events-per-vehicle-seed 1` to validate the complete
+pipeline locally without an API call. The dry run is not experimental evidence.
+
+## 5. Legacy bounded real-GPT-4o audit
 
 Use a newly issued project key only through the process environment:
 
@@ -57,6 +76,9 @@ only `conversation_trace_public.jsonl` after reviewing it.
   policy-level DT outcomes.
 - `results/llm_audit/`: bounded 30-event real-model process evidence and
   sanitized public interaction traces.
+- `results/actual_agentic_v2/`: actual-model same-state comparison across all four
+  schemes. Network and compute states remain simulated, and cloud planner wall
+  time is reported separately from DT-update latency.
 
 Do not add cloud API wall time to the reported simulated network E2E latency,
 and do not present the bounded model audit as the 30-seed policy experiment.

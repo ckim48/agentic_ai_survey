@@ -1,0 +1,18 @@
+actual_agentic:
+  model: gpt-4o
+  independent_seeds: 4
+  events_per_vehicle_seed: 6
+  trace_frames: 180
+  max_negotiation_rounds: 3
+  memory_events: 8
+  max_output_tokens: 160
+  timeout_s: 90
+  max_retries: 3
+  max_total_api_requests: 1000
+  parallel_domain_agents: 3
+  output_dir: results/actual_agentic_v2
+  # Random class-stratified events provide a common evaluation set for every
+  # compared planner at each vehicle load.
+  sampling_mode: class_stratified
+  input_usd_per_million_tokens: 2.50
+  output_usd_per_million_tokens: 10.00

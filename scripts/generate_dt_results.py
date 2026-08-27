@@ -120,6 +120,33 @@ def plot_outcomes(frame, output_base):
                     pad_inches=0.035)
     plt.close(fig)
 
+    chart_data = frame[[
+        "scheme", "vehicles", "runs", "deadline_success_mean",
+        "deadline_success_ci95", "p95_latency_s_mean",
+        "p95_latency_s_ci95", "mean_dt_age_s_mean",
+        "mean_dt_age_s_ci95", "p95_position_error_m_mean",
+        "p95_position_error_m_ci95",
+    ]].copy()
+    chart_data["scheme"] = pd.Categorical(
+        chart_data["scheme"], categories=SCHEMES, ordered=True)
+    chart_data = chart_data.sort_values(["vehicles", "scheme"])
+    chart_data["scheme"] = chart_data["scheme"].astype(str)
+    chart_data = chart_data.rename(columns={
+        "deadline_success_mean": "deadline_satisfaction_pct",
+        "deadline_success_ci95": "deadline_satisfaction_ci95_pp",
+        "p95_latency_s_mean": "p95_sync_latency_ms",
+        "p95_latency_s_ci95": "p95_sync_latency_ci95_ms",
+        "mean_dt_age_s_mean": "mean_dt_staleness_s",
+        "mean_dt_age_s_ci95": "mean_dt_staleness_ci95_s",
+        "p95_position_error_m_mean": "p95_position_error_m",
+        "p95_position_error_m_ci95": "p95_position_error_ci95_m",
+    })
+    chart_data["deadline_satisfaction_pct"] *= 100.0
+    chart_data["deadline_satisfaction_ci95_pp"] *= 100.0
+    chart_data["p95_sync_latency_ms"] *= 1000.0
+    chart_data["p95_sync_latency_ci95_ms"] *= 1000.0
+    chart_data.to_csv(output_base + ".csv", index=False, float_format="%.6f")
+
 
 def plot_classes(frame, output_base):
     setup_style()

@@ -183,7 +183,7 @@ python3 scripts/summarize_results.py --config config/simulation.yaml \
 - `figures/agentic_interaction_metrics.{png,pdf}` and
   `paper/agentic_{metrics_table,results}.tex`: agent agreement, negotiation,
   token, and per-role API-latency evidence.
-- `results/dt_analysis/`, `figures/dt_outcomes_four_scheme.{png,pdf}`, and
+- `results/dt_analysis/`, `figures/dt_outcomes_four_scheme.{png,pdf,svg,csv}`, and
   `figures/dt_deadline_by_class.{png,pdf}`: dedicated policy-level DT age,
   position error, synchronization latency, and deadline results over 30 seeds.
 - `paper/aai_cdos_results_bundle.tex` and `paper/RESULTS_GUIDE.md`: drop-in

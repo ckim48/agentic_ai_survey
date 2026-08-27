@@ -8,59 +8,121 @@ import os
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.ticker import LogFormatterMathtext, LogLocator
 import numpy as np
 import pandas as pd
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMES = ["AAI-CDOS", "Single Domain", "Independent Agents", "One-Shot LLM"]
-COLORS = {"AAI-CDOS": "#0072B2", "Single Domain": "#D55E00",
-          "Independent Agents": "#E69F00", "One-Shot LLM": "#009E73"}
-MARKERS = {"AAI-CDOS": "o", "Single Domain": "s",
-           "Independent Agents": "^", "One-Shot LLM": "D"}
+LABELS = {"AAI-CDOS": "AAI-CDOS", "Single Domain": "Single Domain",
+          "Independent Agents": "Independent", "One-Shot LLM": "One-Shot LLM"}
+STYLES = {
+    "AAI-CDOS": dict(color="#2F6FDB", marker="D", linestyle="-", linewidth=1.7),
+    "Single Domain": dict(color="#F28E2B", marker="o", linestyle="-", linewidth=1.35),
+    "Independent Agents": dict(color="#E15759", marker="s", linestyle="--", linewidth=1.35),
+    "One-Shot LLM": dict(color="#59A14F", marker="^", linestyle=":", linewidth=1.55),
+}
 
 
-def line_panel(ax, frame, metric, ci, scale, title, ylabel, log=False):
+def setup_style():
+    plt.rcParams.update({
+        "font.family": "serif",
+        "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
+        "font.size": 8.2,
+        "axes.labelsize": 8.4,
+        "axes.titlesize": 9.0,
+        "legend.fontsize": 8.0,
+        "xtick.labelsize": 7.7,
+        "ytick.labelsize": 7.7,
+        "axes.linewidth": 0.8,
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,
+        "savefig.dpi": 400,
+    })
+
+
+def line_panel(ax, frame, metric, ci, scale, title, ylabel, log=False,
+               panel_label=None, annotate_aai=False):
     for scheme in SCHEMES:
         group = frame[frame.scheme == scheme].sort_values("vehicles")
-        ax.errorbar(group.vehicles, scale * group[metric],
-                    yerr=scale * group[ci], marker=MARKERS[scheme],
-                    color=COLORS[scheme], label=scheme, capsize=3, lw=1.6)
-    ax.set_title(title)
-    ax.set_xlabel("Connected vehicles")
+        x = group.vehicles.to_numpy(dtype=float)
+        y = scale * group[metric].to_numpy(dtype=float)
+        error = scale * group[ci].to_numpy(dtype=float)
+        lower = y - error
+        if log:
+            lower = np.maximum(lower, np.maximum(y * 0.05, 1e-8))
+        style = STYLES[scheme]
+        ax.fill_between(x, lower, y + error, color=style["color"],
+                        alpha=0.10, linewidth=0, zorder=1)
+        ax.plot(x, y, label=LABELS[scheme], markersize=4.5,
+                markerfacecolor="white", markeredgewidth=0.9,
+                zorder=3, **style)
+        if annotate_aai and scheme == "AAI-CDOS":
+            for x_value, y_value in zip(x, y):
+                label = "%.1f" % y_value if y_value >= 10 else "%.2f" % y_value
+                ax.annotate(label, (x_value, y_value), xytext=(0, 7),
+                            textcoords="offset points", ha="center", va="bottom",
+                            fontsize=6.8, color=style["color"])
+    if title:
+        ax.set_title(title, pad=4)
+    ax.set_xlabel("Number of vehicles", labelpad=2)
     ax.set_ylabel(ylabel)
     ax.set_xticks(sorted(frame.vehicles.unique()))
     if log:
         ax.set_yscale("log")
+        ax.yaxis.set_major_locator(LogLocator(base=10.0))
+        ax.yaxis.set_major_formatter(LogFormatterMathtext(base=10.0))
+    if panel_label:
+        ax.text(0.5, -0.31, panel_label, transform=ax.transAxes,
+                ha="center", va="top", fontsize=9.0)
+    ax.set_axisbelow(True)
+    ax.grid(True, which="major", linestyle="--", linewidth=0.45,
+            color="#B8B8B8", alpha=0.55)
+    ax.grid(False, which="minor")
+    ax.tick_params(direction="in", length=3.0, width=0.7)
+    for spine in ax.spines.values():
+        spine.set_color("#3E3E3E")
 
 
 def plot_outcomes(frame, output_base):
-    plt.rcParams.update({"font.size": 8.5, "axes.grid": True,
-                         "grid.alpha": 0.25, "savefig.dpi": 300})
-    fig, axes = plt.subplots(2, 2, figsize=(7.25, 5.2))
+    setup_style()
+    fig, axes = plt.subplots(2, 2, figsize=(7.35, 5.35))
     line_panel(axes[0, 0], frame, "deadline_success_mean",
                "deadline_success_ci95", 100.0,
-               "DT update deadline satisfaction", "%")
+               None, "Deadline satisfaction (%)",
+               panel_label="(a) Deadline Satisfaction")
     line_panel(axes[0, 1], frame, "p95_latency_s_mean",
                "p95_latency_s_ci95", 1000.0,
-               "P95 DT synchronization latency", "ms", log=True)
+               None, "P95 synchronization latency (ms)", log=True,
+               panel_label="(b) P95 Synchronization Latency")
     line_panel(axes[1, 0], frame, "mean_dt_age_s_mean",
                "mean_dt_age_s_ci95", 1.0,
-               "Mean DT information age", "s", log=True)
+               None, "Mean DT staleness (s)", log=True,
+               panel_label="(c) Mean DT Staleness")
     line_panel(axes[1, 1], frame, "p95_position_error_m_mean",
                "p95_position_error_m_ci95", 1.0,
-               "P95 DT position error", "m", log=True)
+               None, "P95 position error (m)", log=True,
+               panel_label="(d) P95 Position Error", annotate_aai=True)
+
+    axes[0, 0].set_ylim(20, 102)
+    axes[0, 0].set_yticks([20, 40, 60, 80, 100])
+    axes[0, 1].set_ylim(1.2e2, 4.5e4)
+    axes[1, 0].set_ylim(1.2e-1, 1.2e2)
+    axes[1, 1].set_ylim(8e-1, 2.2e3)
     handles, labels = axes[0, 0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="upper center", ncol=4,
-               bbox_to_anchor=(0.5, 1.01), fontsize=8)
-    fig.tight_layout(rect=(0, 0, 1, 0.94))
-    for ext in ("png", "pdf"):
-        fig.savefig(output_base + "." + ext, bbox_inches="tight")
+               bbox_to_anchor=(0.5, 0.995), frameon=False,
+               handlelength=2.6, columnspacing=1.6)
+    fig.subplots_adjust(left=0.095, right=0.985, bottom=0.105, top=0.90,
+                        wspace=0.30, hspace=0.58)
+    for ext in ("png", "pdf", "svg"):
+        fig.savefig(output_base + "." + ext, bbox_inches="tight",
+                    pad_inches=0.035)
     plt.close(fig)
 
 
 def plot_classes(frame, output_base):
-    plt.rcParams.update({"font.size": 8.5, "axes.grid": True,
-                         "grid.alpha": 0.25, "savefig.dpi": 300})
+    setup_style()
     classes = [("safety", "Safety (150 ms)"),
                ("cooperative", "Cooperative (350 ms)"),
                ("routine", "Routine (1 s)")]

@@ -22,6 +22,12 @@ STYLES = {
     "Independent Agents": dict(color="#E15759", marker="s", linestyle="--", linewidth=1.35),
     "One-Shot LLM": dict(color="#59A14F", marker="^", linestyle=":", linewidth=1.55),
 }
+HATCHES = {
+    "AAI-CDOS": "////",
+    "Single Domain": "\\\\\\\\",
+    "Independent Agents": "xxxx",
+    "One-Shot LLM": "....",
+}
 
 
 def setup_style():
@@ -89,22 +95,35 @@ def environment_panel(ax, frame, metric, ci, scale, ylabel, log=False,
     conditions = (frame[["condition_index", "condition"]]
                   .drop_duplicates().sort_values("condition_index"))
     condition_labels = conditions.condition.tolist()
-    offsets = np.linspace(-0.24, 0.24, len(SCHEMES))
+    bar_width = 0.19
+    offsets = (np.arange(len(SCHEMES)) - (len(SCHEMES) - 1) / 2.0) * bar_width
+    if log:
+        means = scale * frame[metric].to_numpy(dtype=float)
+        errors = scale * frame[ci].to_numpy(dtype=float)
+        positive_lower = np.maximum(means - errors, 1e-6)
+        bar_bottom = max(1e-3, float(np.nanmin(positive_lower)) * 0.60)
+    else:
+        bar_bottom = 0.0
     for scheme, offset in zip(SCHEMES, offsets):
         group = frame[frame.scheme == scheme].sort_values("condition_index")
         x = group.condition_index.to_numpy(dtype=float) + offset
         y = scale * group[metric].to_numpy(dtype=float)
         error = scale * group[ci].to_numpy(dtype=float)
         style = STYLES[scheme]
+        height = np.maximum(y - bar_bottom, 0.0)
+        ax.bar(
+            x, height, width=bar_width * 0.88, bottom=bar_bottom,
+            label=LABELS[scheme], color=style["color"], alpha=0.78,
+            edgecolor="#333333", linewidth=0.55, hatch=HATCHES[scheme],
+            zorder=2)
         ax.errorbar(
-            x, y, yerr=error, label=LABELS[scheme], markersize=4.8,
-            markerfacecolor="white", markeredgewidth=0.9, capsize=2.4,
-            elinewidth=0.9, linewidth=0, color=style["color"],
-            marker=style["marker"], zorder=3)
+            x, y, yerr=error, fmt="none", ecolor="#333333",
+            capsize=2.1, elinewidth=0.75, capthick=0.75, zorder=4)
     ax.set_xlabel("Network condition", labelpad=2)
     ax.set_ylabel(ylabel)
     ax.set_xticks(np.arange(len(condition_labels)))
     ax.set_xticklabels(condition_labels, rotation=0)
+    ax.set_xlim(-0.55, len(condition_labels) - 0.45)
     if log:
         ax.set_yscale("log")
         ax.yaxis.set_major_locator(LogLocator(base=10.0))

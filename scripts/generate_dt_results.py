@@ -84,6 +84,43 @@ def line_panel(ax, frame, metric, ci, scale, title, ylabel, log=False,
         spine.set_color("#3E3E3E")
 
 
+def environment_panel(ax, frame, metric, ci, scale, ylabel, log=False,
+                      panel_label=None):
+    conditions = (frame[["condition_index", "condition"]]
+                  .drop_duplicates().sort_values("condition_index"))
+    condition_labels = conditions.condition.tolist()
+    offsets = np.linspace(-0.24, 0.24, len(SCHEMES))
+    for scheme, offset in zip(SCHEMES, offsets):
+        group = frame[frame.scheme == scheme].sort_values("condition_index")
+        x = group.condition_index.to_numpy(dtype=float) + offset
+        y = scale * group[metric].to_numpy(dtype=float)
+        error = scale * group[ci].to_numpy(dtype=float)
+        style = STYLES[scheme]
+        ax.errorbar(
+            x, y, yerr=error, label=LABELS[scheme], markersize=4.8,
+            markerfacecolor="white", markeredgewidth=0.9, capsize=2.4,
+            elinewidth=0.9, linewidth=0, color=style["color"],
+            marker=style["marker"], zorder=3)
+    ax.set_xlabel("Network condition", labelpad=2)
+    ax.set_ylabel(ylabel)
+    ax.set_xticks(np.arange(len(condition_labels)))
+    ax.set_xticklabels(condition_labels, rotation=0)
+    if log:
+        ax.set_yscale("log")
+        ax.yaxis.set_major_locator(LogLocator(base=10.0))
+        ax.yaxis.set_major_formatter(LogFormatterMathtext(base=10.0))
+    if panel_label:
+        ax.text(0.5, -0.31, panel_label, transform=ax.transAxes,
+                ha="center", va="top", fontsize=9.0)
+    ax.set_axisbelow(True)
+    ax.grid(True, axis="y", which="major", linestyle="--", linewidth=0.45,
+            color="#B8B8B8", alpha=0.55)
+    ax.grid(False, which="minor")
+    ax.tick_params(direction="in", length=3.0, width=0.7)
+    for spine in ax.spines.values():
+        spine.set_color("#3E3E3E")
+
+
 def plot_outcomes(frame, output_base):
     setup_style()
     fig, axes = plt.subplots(2, 2, figsize=(7.35, 5.35))
@@ -146,6 +183,77 @@ def plot_outcomes(frame, output_base):
     chart_data["p95_sync_latency_ms"] *= 1000.0
     chart_data["p95_sync_latency_ci95_ms"] *= 1000.0
     chart_data.to_csv(output_base + ".csv", index=False, float_format="%.6f")
+
+
+def plot_environment_outcomes(load_frame, environment_frame, output_base):
+    setup_style()
+    fig, axes = plt.subplots(2, 2, figsize=(7.35, 5.35))
+    line_panel(axes[0, 0], load_frame, "deadline_success_mean",
+               "deadline_success_ci95", 100.0, None,
+               "Deadline satisfaction (%)",
+               panel_label="(a) Load Scalability")
+    line_panel(axes[0, 1], load_frame, "p95_latency_s_mean",
+               "p95_latency_s_ci95", 1000.0, None,
+               "P95 synchronization latency (ms)", log=True,
+               panel_label="(b) Latency Scalability")
+    environment_panel(axes[1, 0], environment_frame,
+                      "deadline_success_mean", "deadline_success_ci95", 100.0,
+                      "Deadline satisfaction (%)",
+                      panel_label="(c) Robustness across Environments")
+    environment_panel(axes[1, 1], environment_frame,
+                      "p95_position_error_m_mean", "p95_position_error_m_ci95", 1.0,
+                      "P95 position error (m)", log=True,
+                      panel_label="(d) DT Accuracy across Environments")
+
+    axes[0, 0].set_ylim(20, 102)
+    axes[0, 0].set_yticks([20, 40, 60, 80, 100])
+    axes[0, 1].set_ylim(1.2e2, 4.5e4)
+    axes[1, 0].set_ylim(0, 105)
+    error_values = environment_frame["p95_position_error_m_mean"].to_numpy(float)
+    error_ci = environment_frame["p95_position_error_m_ci95"].to_numpy(float)
+    lower = max(0.5, float(np.nanmin(np.maximum(error_values - error_ci, 1e-6))) / 1.5)
+    upper = float(np.nanmax(error_values + error_ci)) * 1.7
+    axes[1, 1].set_ylim(lower, upper)
+    handles, labels = axes[0, 0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="upper center", ncol=4,
+               bbox_to_anchor=(0.5, 0.995), frameon=False,
+               handlelength=2.6, columnspacing=1.6)
+    fig.subplots_adjust(left=0.095, right=0.985, bottom=0.105, top=0.90,
+                        wspace=0.30, hspace=0.58)
+    for ext in ("png", "pdf", "svg"):
+        fig.savefig(output_base + "." + ext, bbox_inches="tight",
+                    pad_inches=0.035)
+    plt.close(fig)
+
+    rows = []
+    top_metrics = [
+        ("a", "deadline_satisfaction", "deadline_success_mean",
+         "deadline_success_ci95", 100.0, "%"),
+        ("b", "p95_sync_latency", "p95_latency_s_mean",
+         "p95_latency_s_ci95", 1000.0, "ms"),
+    ]
+    for panel, metric_label, metric, ci, scale, unit in top_metrics:
+        for _, row in load_frame.iterrows():
+            rows.append({
+                "panel": panel, "metric": metric_label, "scheme": row.scheme,
+                "vehicles": int(row.vehicles), "condition": "",
+                "mean": scale * row[metric], "ci95": scale * row[ci], "unit": unit,
+            })
+    bottom_metrics = [
+        ("c", "deadline_satisfaction", "deadline_success_mean",
+         "deadline_success_ci95", 100.0, "%"),
+        ("d", "p95_position_error", "p95_position_error_m_mean",
+         "p95_position_error_m_ci95", 1.0, "m"),
+    ]
+    for panel, metric_label, metric, ci, scale, unit in bottom_metrics:
+        for _, row in environment_frame.iterrows():
+            rows.append({
+                "panel": panel, "metric": metric_label, "scheme": row.scheme,
+                "vehicles": int(row.vehicles), "condition": row.condition,
+                "mean": scale * row[metric], "ci95": scale * row[ci], "unit": unit,
+            })
+    pd.DataFrame(rows).to_csv(output_base + ".csv", index=False,
+                              float_format="%.6f")
 
 
 def plot_classes(frame, output_base):
@@ -261,6 +369,7 @@ def write_results(path, frame, gain_frame):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", default="results/full/summary.csv")
+    parser.add_argument("--environment-input", default="results/environment_sweep/summary.csv")
     args = parser.parse_args()
     path = args.input if os.path.isabs(args.input) else os.path.join(ROOT, args.input)
     frame = pd.read_csv(path)
@@ -291,6 +400,46 @@ def main():
     gain_frame = gains(frame)
     gain_frame.to_csv(os.path.join(outdir, "aai_gains.csv"), index=False)
     plot_outcomes(frame, os.path.join(ROOT, "figures", "dt_outcomes_four_scheme"))
+    environment_path = (args.environment_input if os.path.isabs(args.environment_input)
+                        else os.path.join(ROOT, args.environment_input))
+    environment_report = {"present": os.path.exists(environment_path)}
+    if os.path.exists(environment_path):
+        environment_frame = pd.read_csv(environment_path)
+        environment_errors = []
+        if len(environment_frame) != 16:
+            environment_errors.append("expected 16 scheme/condition rows")
+        if set(environment_frame.scheme) != set(SCHEMES):
+            environment_errors.append("environment scheme set mismatch")
+        if environment_frame.condition_id.nunique() != 4:
+            environment_errors.append("expected four network conditions")
+        if set(environment_frame.condition_index) != {0, 1, 2, 3}:
+            environment_errors.append("environment condition order mismatch")
+        if set(environment_frame.vehicles) != {25}:
+            environment_errors.append("environment sweep must fix 25 vehicles")
+        if not (environment_frame.runs == 30).all():
+            environment_errors.append("not every environment row has 30 runs")
+        environment_required = [
+            "deadline_success_mean", "deadline_success_ci95",
+            "p95_position_error_m_mean", "p95_position_error_m_ci95",
+        ]
+        if environment_frame[environment_required].isna().any().any():
+            environment_errors.append("NaN in environment DT metrics")
+        if environment_errors:
+            errors.extend(environment_errors)
+        else:
+            plot_environment_outcomes(
+                frame, environment_frame,
+                os.path.join(ROOT, "figures", "dt_outcomes_environment_four_scheme"))
+        environment_report.update({
+            "rows": len(environment_frame),
+            "conditions": int(environment_frame.condition_id.nunique()),
+            "fixed_vehicle_count": sorted(
+                int(value) for value in environment_frame.vehicles.unique()),
+            "runs_per_condition_scheme": sorted(
+                int(value) for value in environment_frame.runs.unique()),
+            "status": "passed" if not environment_errors else "failed",
+            "errors": environment_errors,
+        })
     plot_classes(frame, os.path.join(ROOT, "figures", "dt_deadline_by_class"))
     write_table(os.path.join(ROOT, "paper", "dt_outcomes_table.tex"), frame)
     write_results(os.path.join(ROOT, "paper", "dt_results.tex"), frame, gain_frame)
@@ -303,6 +452,7 @@ def main():
         "schemes": SCHEMES,
         "source": "deterministic 30-seed trace-driven network simulation",
         "real_gpt_api_latency_included": False,
+        "environment_sweep": environment_report,
     }
     with open(os.path.join(outdir, "validation.json"), "w") as f:
         json.dump(report, f, indent=2, sort_keys=True)

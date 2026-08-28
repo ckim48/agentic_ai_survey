@@ -1,4 +1,17 @@
 {
+  "environment_sweep": {
+    "conditions": 4,
+    "errors": [],
+    "fixed_vehicle_count": [
+      25
+    ],
+    "present": true,
+    "rows": 16,
+    "runs_per_condition_scheme": [
+      30
+    ],
+    "status": "passed"
+  },
   "errors": [],
   "real_gpt_api_latency_included": false,
   "rows": 12,

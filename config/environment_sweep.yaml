@@ -1,0 +1,44 @@
+experiment:
+  fixed_vehicle_count: 25
+  independent_runs: 30
+  frames_per_run: 180
+
+# Controlled stress scenarios replay the same Seoul mobility trace and seed set.
+# Only the listed radio/compute parameters differ from config/simulation.yaml.
+conditions:
+  - id: nominal
+    label: Nominal
+    description: Baseline radio, routing, and computing configuration.
+    overrides: {}
+
+  - id: radio_degraded
+    label: Radio degraded
+    description: Lower access bandwidth, higher receiver noise, and excess path loss.
+    overrides:
+      network:
+        ground_bandwidth_hz: 25000000
+        air_bandwidth_hz: 200000000
+        satellite_bandwidth_hz: 75000000
+        receiver_noise_figure_db: 12
+        ground_extra_loss_db: 4
+        air_extra_loss_db: 4
+        satellite_extra_loss_db: 2
+
+  - id: edge_congested
+    label: Edge congested
+    description: Reduced processing rates model background edge-compute load.
+    overrides:
+      compute:
+        ground_edge_cpu_hz: 3000000000
+        uav_cpu_hz: 100000000
+        satellite_cpu_hz: 40000000000
+
+  - id: uav_blockage
+    label: UAV blockage
+    description: The aerial radio-access link is unavailable; ground and LEO remain usable.
+    overrides:
+      network:
+        access_enabled:
+          ground: true
+          uav: false
+          leo: true

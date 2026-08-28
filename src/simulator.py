@@ -175,7 +175,8 @@ def radio_options(now, pos, task, nvehicles, infra, cfg, bw_multiplier=1.0):
     d_bs = np.linalg.norm(dbs - pos[None, :], axis=1)
     ib = int(np.argmin(d_bs))
     dkm = max(float(d_bs[ib]) / 1000.0, 0.002)
-    pl_g = 140.7 + 36.7 * math.log10(dkm) + float(task["shadow_ground"])
+    pl_g = (140.7 + 36.7 * math.log10(dkm) + float(task["shadow_ground"]) +
+            float(net.get("ground_extra_loss_db", 0.0)))
     load_g = max(1.0, nvehicles / float(len(dbs)))
     bw_g = float(net["ground_bandwidth_hz"]) / load_g * bw_multiplier
     rg, sg = _rate(bw_g, tx_dbm, pl_g, nd, nf,
@@ -190,6 +191,7 @@ def radio_options(now, pos, task, nvehicles, infra, cfg, bw_multiplier=1.0):
     pl_u = 32.45 + 20 * math.log10(max(du / 1000.0, 1e-3)) + 20 * math.log10(f_mhz)
     elevation = math.degrees(math.atan2(h, max(float(horizontal[iu]), 1.0)))
     pl_u += 2.0 if elevation >= 30.0 else 12.0
+    pl_u += float(net.get("air_extra_loss_db", 0.0))
     load_u = max(1.0, nvehicles / float(len(up)))
     bw_u = float(net["air_bandwidth_hz"]) / load_u * bw_multiplier
     ru, su = _rate(bw_u, tx_dbm, pl_u, nd, nf,
@@ -198,31 +200,41 @@ def radio_options(now, pos, task, nvehicles, infra, cfg, bw_multiplier=1.0):
 
     ds = float(net["leo_altitude_m"])
     f_mhz_s = float(net["satellite_carrier_hz"]) / 1e6
-    pl_s = 32.45 + 20 * math.log10(ds / 1000.0) + 20 * math.log10(f_mhz_s)
+    pl_s = (32.45 + 20 * math.log10(ds / 1000.0) +
+            20 * math.log10(f_mhz_s) +
+            float(net.get("satellite_extra_loss_db", 0.0)))
     bw_s = float(net["satellite_bandwidth_hz"]) / max(float(nvehicles), 1.0) * bw_multiplier
     rs, ss = _rate(bw_s, _dbm(task["satellite_tx_w"]), pl_s, nd, nf,
                    gain_db=float(net["satellite_antenna_gain_db"]), fading=task["fading_leo"])
-    return {
+    options = {
         "ground": {"rate": rg, "snr": sg, "index": ib, "distance": float(d_bs[ib])},
         "uav": {"rate": ru, "snr": su, "index": iu, "distance": du},
         "leo": {"rate": rs, "snr": ss, "index": 0, "distance": ds},
     }
+    enabled = net.get("access_enabled", {})
+    return {key: value for key, value in options.items()
+            if bool(enabled.get(key, True))}
 
 
 def candidate_plans(radios, cfg):
     plans = []
-    ib = radios["ground"]["index"]
-    iu = radios["uav"]["index"]
-    plans.append(("ground", "ground%d" % ib))
-    for b in range(int(cfg["network"]["base_stations"])):
-        if b != ib:
-            plans.append(("ground", "ground%d" % b))
-    plans.append(("ground", "sat0"))
-    plans.append(("uav", "uav%d" % iu))
-    for b in range(int(cfg["network"]["base_stations"])):
-        plans.append(("uav", "ground%d" % b))
-    plans.append(("uav", "sat0"))
-    plans.append(("leo", "sat0"))
+    if "ground" in radios:
+        ib = radios["ground"]["index"]
+        plans.append(("ground", "ground%d" % ib))
+        for b in range(int(cfg["network"]["base_stations"])):
+            if b != ib:
+                plans.append(("ground", "ground%d" % b))
+        plans.append(("ground", "sat0"))
+    if "uav" in radios:
+        iu = radios["uav"]["index"]
+        plans.append(("uav", "uav%d" % iu))
+        for b in range(int(cfg["network"]["base_stations"])):
+            plans.append(("uav", "ground%d" % b))
+        plans.append(("uav", "sat0"))
+    if "leo" in radios:
+        plans.append(("leo", "sat0"))
+    if not plans:
+        raise ValueError("at least one radio access type must be enabled")
     return plans
 
 

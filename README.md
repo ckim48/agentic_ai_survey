@@ -103,7 +103,14 @@ pip install -r requirements.txt
 python3 scripts/inspect_trace.py
 python3 scripts/run_experiments.py --config config/simulation.yaml
 python3 scripts/summarize_results.py --config config/simulation.yaml
+python3 scripts/run_environment_sweep.py
+python3 scripts/generate_dt_results.py
 ```
+
+The environment sweep fixes the load at 25 vehicles and uses the same 30
+seeds for four controlled conditions: nominal operation, radio degradation,
+edge-compute congestion, and UAV-access blockage. The exact parameter
+overrides are declared in `config/environment_sweep.yaml`.
 
 Sensitivity study:
 
@@ -160,6 +167,11 @@ python3 scripts/summarize_results.py --config config/simulation.yaml \
   are intentionally not committed.
 - `figures/main_performance.{png,pdf}`: deadline success, p95 latency, DT age,
   and position-error comparisons.
+- `results/environment_sweep/`: 30-seed results for four controlled network
+  conditions at a fixed 25-vehicle load.
+- `figures/dt_outcomes_environment_four_scheme.{png,pdf,svg,csv}`: load
+  scalability in the upper panels and environment robustness in the lower
+  panels, including plotted means and 95% CIs in CSV form.
 - `figures/agent_overhead.{png,pdf}`: negotiation and surrogate overhead.
 - `results/sensitivity/` and `figures/sensitivity.{png,pdf}`: negotiation-round
   and independent-agent reconciliation-delay sensitivity.

@@ -1,0 +1,57 @@
+panel,metric,scheme,vehicles,condition,mean,ci95,unit
+a,deadline_satisfaction,AAI-CDOS,10,,99.170370,0.114494,%
+a,deadline_satisfaction,Single Domain,10,,52.407407,2.140036,%
+a,deadline_satisfaction,Independent Agents,10,,83.916667,0.367642,%
+a,deadline_satisfaction,One-Shot LLM,10,,86.422222,0.825494,%
+a,deadline_satisfaction,AAI-CDOS,25,,97.277778,0.373249,%
+a,deadline_satisfaction,Single Domain,25,,37.208148,1.683913,%
+a,deadline_satisfaction,Independent Agents,25,,73.720741,0.902807,%
+a,deadline_satisfaction,One-Shot LLM,25,,63.762963,1.394693,%
+a,deadline_satisfaction,AAI-CDOS,50,,89.215926,1.108503,%
+a,deadline_satisfaction,Single Domain,50,,25.311481,1.017248,%
+a,deadline_satisfaction,Independent Agents,50,,57.212222,1.334547,%
+a,deadline_satisfaction,One-Shot LLM,50,,34.172222,1.792731,%
+b,p95_sync_latency,AAI-CDOS,10,,192.756155,6.762633,ms
+b,p95_sync_latency,Single Domain,10,,2036.870436,92.332691,ms
+b,p95_sync_latency,Independent Agents,10,,322.541686,6.160761,ms
+b,p95_sync_latency,One-Shot LLM,10,,3167.184102,596.836523,ms
+b,p95_sync_latency,AAI-CDOS,25,,306.392371,11.657150,ms
+b,p95_sync_latency,Single Domain,25,,3661.481067,116.936185,ms
+b,p95_sync_latency,Independent Agents,25,,426.034911,10.515220,ms
+b,p95_sync_latency,One-Shot LLM,25,,11710.376938,420.819221,ms
+b,p95_sync_latency,AAI-CDOS,50,,470.888745,17.549840,ms
+b,p95_sync_latency,Single Domain,50,,7089.885330,239.555642,ms
+b,p95_sync_latency,Independent Agents,50,,574.706004,14.446154,ms
+b,p95_sync_latency,One-Shot LLM,50,,25202.002406,309.249747,ms
+c,deadline_satisfaction,AAI-CDOS,25,Nominal,97.277778,0.373249,%
+c,deadline_satisfaction,Independent Agents,25,Nominal,73.720741,0.902807,%
+c,deadline_satisfaction,One-Shot LLM,25,Nominal,63.762963,1.394693,%
+c,deadline_satisfaction,Single Domain,25,Nominal,37.208148,1.683913,%
+c,deadline_satisfaction,AAI-CDOS,25,Radio degraded,73.105926,1.700460,%
+c,deadline_satisfaction,Independent Agents,25,Radio degraded,43.855556,1.104378,%
+c,deadline_satisfaction,One-Shot LLM,25,Radio degraded,31.928889,1.701078,%
+c,deadline_satisfaction,Single Domain,25,Radio degraded,27.231852,0.597451,%
+c,deadline_satisfaction,AAI-CDOS,25,Edge congested,92.002222,0.851202,%
+c,deadline_satisfaction,Independent Agents,25,Edge congested,63.090370,0.921765,%
+c,deadline_satisfaction,One-Shot LLM,25,Edge congested,58.502963,1.518772,%
+c,deadline_satisfaction,Single Domain,25,Edge congested,30.864444,1.657788,%
+c,deadline_satisfaction,AAI-CDOS,25,UAV blockage,88.434815,0.250153,%
+c,deadline_satisfaction,Independent Agents,25,UAV blockage,58.305185,0.517720,%
+c,deadline_satisfaction,One-Shot LLM,25,UAV blockage,32.981481,0.992280,%
+c,deadline_satisfaction,Single Domain,25,UAV blockage,51.042222,0.934173,%
+d,p95_position_error,AAI-CDOS,25,Nominal,2.783603,0.186808,m
+d,p95_position_error,Independent Agents,25,Nominal,106.278440,4.780436,m
+d,p95_position_error,One-Shot LLM,25,Nominal,153.744723,8.982126,m
+d,p95_position_error,Single Domain,25,Nominal,723.358814,75.134397,m
+d,p95_position_error,AAI-CDOS,25,Radio degraded,122.430257,8.351458,m
+d,p95_position_error,Independent Agents,25,Radio degraded,340.816692,16.143128,m
+d,p95_position_error,One-Shot LLM,25,Radio degraded,616.361647,58.663969,m
+d,p95_position_error,Single Domain,25,Radio degraded,838.193313,49.927433,m
+d,p95_position_error,AAI-CDOS,25,Edge congested,11.812887,4.722563,m
+d,p95_position_error,Independent Agents,25,Edge congested,157.620470,7.780368,m
+d,p95_position_error,One-Shot LLM,25,Edge congested,189.521336,12.825869,m
+d,p95_position_error,Single Domain,25,Edge congested,1347.054802,140.881570,m
+d,p95_position_error,AAI-CDOS,25,UAV blockage,28.587179,3.504757,m
+d,p95_position_error,Independent Agents,25,UAV blockage,188.250612,8.421670,m
+d,p95_position_error,One-Shot LLM,25,UAV blockage,566.010511,35.291783,m
+d,p95_position_error,Single Domain,25,UAV blockage,263.273482,13.551101,m

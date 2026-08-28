@@ -23,10 +23,10 @@ b,p95_sync_latency,AAI-CDOS,50,,470.888745,17.549840,ms
 b,p95_sync_latency,Single Domain,50,,7089.885330,239.555642,ms
 b,p95_sync_latency,Independent Agents,50,,574.706004,14.446154,ms
 b,p95_sync_latency,One-Shot LLM,50,,25202.002406,309.249747,ms
-c,deadline_satisfaction,AAI-CDOS,25,Nominal,97.277778,0.373249,%
-c,deadline_satisfaction,Independent Agents,25,Nominal,73.720741,0.902807,%
-c,deadline_satisfaction,One-Shot LLM,25,Nominal,63.762963,1.394693,%
-c,deadline_satisfaction,Single Domain,25,Nominal,37.208148,1.683913,%
+c,deadline_satisfaction,AAI-CDOS,25,Baseline,97.277778,0.373249,%
+c,deadline_satisfaction,Independent Agents,25,Baseline,73.720741,0.902807,%
+c,deadline_satisfaction,One-Shot LLM,25,Baseline,63.762963,1.394693,%
+c,deadline_satisfaction,Single Domain,25,Baseline,37.208148,1.683913,%
 c,deadline_satisfaction,AAI-CDOS,25,Radio degraded,73.105926,1.700460,%
 c,deadline_satisfaction,Independent Agents,25,Radio degraded,43.855556,1.104378,%
 c,deadline_satisfaction,One-Shot LLM,25,Radio degraded,31.928889,1.701078,%
@@ -39,10 +39,10 @@ c,deadline_satisfaction,AAI-CDOS,25,UAV blockage,88.434815,0.250153,%
 c,deadline_satisfaction,Independent Agents,25,UAV blockage,58.305185,0.517720,%
 c,deadline_satisfaction,One-Shot LLM,25,UAV blockage,32.981481,0.992280,%
 c,deadline_satisfaction,Single Domain,25,UAV blockage,51.042222,0.934173,%
-d,p95_position_error,AAI-CDOS,25,Nominal,2.783603,0.186808,m
-d,p95_position_error,Independent Agents,25,Nominal,106.278440,4.780436,m
-d,p95_position_error,One-Shot LLM,25,Nominal,153.744723,8.982126,m
-d,p95_position_error,Single Domain,25,Nominal,723.358814,75.134397,m
+d,p95_position_error,AAI-CDOS,25,Baseline,2.783603,0.186808,m
+d,p95_position_error,Independent Agents,25,Baseline,106.278440,4.780436,m
+d,p95_position_error,One-Shot LLM,25,Baseline,153.744723,8.982126,m
+d,p95_position_error,Single Domain,25,Baseline,723.358814,75.134397,m
 d,p95_position_error,AAI-CDOS,25,Radio degraded,122.430257,8.351458,m
 d,p95_position_error,Independent Agents,25,Radio degraded,340.816692,16.143128,m
 d,p95_position_error,One-Shot LLM,25,Radio degraded,616.361647,58.663969,m

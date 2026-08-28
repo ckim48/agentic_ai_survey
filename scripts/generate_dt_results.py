@@ -28,6 +28,15 @@ HATCHES = {
     "Independent Agents": "xxxx",
     "One-Shot LLM": "....",
 }
+CONDITION_TICK_LABELS = {
+    "Nominal": "Baseline",
+    "Radio degraded": "Radio\ndegraded",
+    "Edge congested": "Edge\ncongested",
+    "UAV blockage": "UAV\nblockage",
+}
+CONDITION_EXPORT_LABELS = {
+    "Nominal": "Baseline",
+}
 
 
 def setup_style():
@@ -94,7 +103,10 @@ def environment_panel(ax, frame, metric, ci, scale, ylabel, log=False,
                       panel_label=None):
     conditions = (frame[["condition_index", "condition"]]
                   .drop_duplicates().sort_values("condition_index"))
-    condition_labels = conditions.condition.tolist()
+    condition_labels = [
+        CONDITION_TICK_LABELS.get(label, label)
+        for label in conditions.condition.tolist()
+    ]
     bar_width = 0.19
     offsets = (np.arange(len(SCHEMES)) - (len(SCHEMES) - 1) / 2.0) * bar_width
     if log:
@@ -119,10 +131,9 @@ def environment_panel(ax, frame, metric, ci, scale, ylabel, log=False,
         ax.errorbar(
             x, y, yerr=error, fmt="none", ecolor="#333333",
             capsize=2.1, elinewidth=0.75, capthick=0.75, zorder=4)
-    ax.set_xlabel("Network condition", labelpad=2)
     ax.set_ylabel(ylabel)
     ax.set_xticks(np.arange(len(condition_labels)))
-    ax.set_xticklabels(condition_labels, rotation=0)
+    ax.set_xticklabels(condition_labels, rotation=0, linespacing=0.92)
     ax.set_xlim(-0.55, len(condition_labels) - 0.45)
     if log:
         ax.set_yscale("log")
@@ -268,7 +279,9 @@ def plot_environment_outcomes(load_frame, environment_frame, output_base):
         for _, row in environment_frame.iterrows():
             rows.append({
                 "panel": panel, "metric": metric_label, "scheme": row.scheme,
-                "vehicles": int(row.vehicles), "condition": row.condition,
+                "vehicles": int(row.vehicles),
+                "condition": CONDITION_EXPORT_LABELS.get(
+                    row.condition, row.condition),
                 "mean": scale * row[metric], "ci95": scale * row[ci], "unit": unit,
             })
     pd.DataFrame(rows).to_csv(output_base + ".csv", index=False,
